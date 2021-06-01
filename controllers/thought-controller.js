@@ -14,5 +14,20 @@ const thoughtController = {
     },
 
     // get one thought by id
+    getThoughtById({ params }, res) {
+        Thought.findOne({ _id: params.id })
+        .then(thoughtData => {
+            if (!thoughtData) {
+                res.status(404).json({ message: 'No thought found with this id! '});
+                return;
+            }
+            res.json(thoughtData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        })
+    },
+
     
 }
