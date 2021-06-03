@@ -79,9 +79,24 @@ const userController = {
             console.log(err);
             res.status(500).json(err);
         });
-    }
+    },
 
     // add friends functionality below
+
+    addFriend({ params }, res) {
+        User.findOneAndUpdate({ _id: params.id }, { $addToSet: { friends: params.id } }, { new: true })
+        .then(userData => {
+            if (!userData) {
+                return res.status(404).json({ message: 'No user found with this id!' });
+                return;
+            }
+            res.json(userData);
+        })
+        .catch(err => {
+            console.loc(err);
+            res.status(500).json(err);
+        });
+    }
 };
 
 
