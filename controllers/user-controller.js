@@ -4,10 +4,10 @@ const userController = {
     // get all Users
     getUsers(req, res) {
         User.find({})
-        // .populate({
-        //     path: 'thoughts',
-        //     select:'-__v'
-        // })
+        .populate({
+            path: 'thought',
+            select:'-__v'
+        })
         .select('-__v')
         .sort({ _id: -1 })
         .then(userData => res.json(userData))
@@ -19,14 +19,14 @@ const userController = {
     // get single user by _id
     getUserById({ params }, res) {
         User.findOne({ _id: params.id })
-        // .populate({
-        //     path: 'friends',
-        //     select: '-__v'
-        // })
-        // .populate({
-        //     path: 'thoughts',
-        //     select: '-__v'
-        // })
+        .populate({
+            path: 'friends',
+            select: '-__v'
+        })
+        .populate({
+            path: 'thought',
+            select: '-__v'
+        })
         .select('-__v')
         .then(userData => {
             // if no user is found
