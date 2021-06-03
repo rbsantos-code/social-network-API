@@ -4,10 +4,10 @@ const userController = {
     // get all Users
     getUsers(req, res) {
         User.find({})
-        .populate({
-            path: 'thought',
-            select:'-__v'
-        })
+        // .populate({
+        //     path: 'thought',
+        //     select:'-__v'
+        // })
         .select('-__v')
         .sort({ _id: -1 })
         .then(userData => res.json(userData))
@@ -24,7 +24,7 @@ const userController = {
             select: '-__v'
         })
         .populate({
-            path: 'thought',
+            path: 'thoughts',
             select: '-__v'
         })
         .select('-__v')
