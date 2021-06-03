@@ -51,7 +51,7 @@ const thoughtController = {
 
     // update thought
     updateThought({ params, body }, res) {
-        Thought.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+        Thought.findOneAndUpdate({ _id: params.thoughtId }, body, { new: true, runValidators: true })
         .then(thoughtData => {
             if (!thoughtData) {
                 res.status(404).json({ message: 'No thought with this id!' });
@@ -67,7 +67,7 @@ const thoughtController = {
 
     // delete thought
     deleteThought({ params }, res) {
-        Thought.findOneAndDelete({ _id: params.id })
+        Thought.findOneAndDelete({ _id: params.thoughtId })
         .then(thoughtData => {
             if (!thoughtData) {
                 return res.status(400).json({ message: 'No thought found with this id!' });
