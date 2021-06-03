@@ -9,7 +9,7 @@ router
 
 // Get user by ID - /api/users/:userId
 router 
-    .route('/:userId')
+    .route('/:id')
     .get(getUserById)
     .put(updateUser)
     .delete(deleteUser);
