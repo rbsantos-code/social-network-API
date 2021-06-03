@@ -84,16 +84,33 @@ const userController = {
     // add friends functionality below
 
     addFriend({ params }, res) {
-        User.findOneAndUpdate({ _id: params.id }, { $addToSet: { friends: params.id } }, { new: true })
+        User.findOneAndUpdate({ _id: params.id }, { $addToSet: { friends: params.friendId } }, { new: true })
         .then(userData => {
             if (!userData) {
-                return res.status(404).json({ message: 'No user found with this id!' });
+                res.status(404).json({ message: 'No user found with this id!' });
                 return;
             }
             res.json(userData);
         })
         .catch(err => {
             console.loc(err);
+            res.status(500).json(err);
+        });
+    },
+
+    // remove friend
+
+    removeFriend({ params }, res) {
+        User.findOneAndUpdate({ _id: params.id }, { $pull: { friends: params.id } }, { new: true })
+        .then(userData => {
+            if (!userData) {
+                res.status(404).json({ message: 'No user found with this id!' });
+                return;
+            }
+            res.json(userData);
+        })
+        .catch(err => {
+            console.log(err);
             res.status(500).json(err);
         });
     }
