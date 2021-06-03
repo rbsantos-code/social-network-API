@@ -89,4 +89,10 @@ const thoughtController = {
             res.status(500).json(err);
         });
     }
+
+    // add reaction functionality below
 }
+
+
+
+module.exports = thoughtController;
