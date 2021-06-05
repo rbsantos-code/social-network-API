@@ -4,10 +4,10 @@ const userController = {
     // get all Users
     getUsers(req, res) {
         User.find({})
-        // .populate({
-        //     path: 'thought',
-        //     select:'-__v'
-        // })
+        .populate({
+            path: 'thought',
+            select:'-__v'
+        })
         .select('-__v')
         .sort({ _id: -1 })
         .then(userData => res.json(userData))
@@ -101,7 +101,7 @@ const userController = {
     // remove friend
 
     removeFriend({ params }, res) {
-        User.findOneAndUpdate({ _id: params.id }, { $pull: { friends: params.id } }, { new: true })
+        User.findOneAndUpdate({ _id: params.id }, { $pull: { friends: params.friendId } }, { new: true })
         .then(userData => {
             if (!userData) {
                 res.status(404).json({ message: 'No user found with this id!' });
